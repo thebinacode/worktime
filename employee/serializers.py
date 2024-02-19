@@ -23,7 +23,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def save(self, **kwargs):
-        department = models.Department.objects.get(id=self.department_id)
+        department = models.Department.objects.get(id=self.validated_data['department_id'])
         return super().save(department=department, **kwargs)
 
 
