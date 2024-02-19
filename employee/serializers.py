@@ -15,11 +15,16 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    department = DepartmentSerializer()
+    department = DepartmentSerializer(read_only=True)
+    department_id = serializers.CharField(write_only=True)
 
     class Meta:
         model = models.Employee
         fields = '__all__'
+
+    def save(self, **kwargs):
+        department = models.Department.objects.get(id=self.department_id)
+        return super().save(department=department, **kwargs)
 
 
 class EmployeeDetailSerializer(serializers.ModelSerializer):
