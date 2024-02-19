@@ -50,3 +50,13 @@ class AttendanceUpdateAPIView(RetrieveUpdateAPIView):
     def perform_update(self, serializer):
         employee = models.Employee.objects.get(id=self.employee_id)
         serializer.save(employee=employee)
+
+
+class DepartmentListCreateAPIView(ListCreateAPIView):
+    serializer_class = serializers.DepartmentSerializer
+    queryset = models.Department.objects.all()
+
+
+class DepartmentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.DepartmentSerializer
+    queryset = models.Department.objects.all()
